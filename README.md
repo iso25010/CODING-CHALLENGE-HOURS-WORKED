@@ -1,3 +1,5 @@
+A solution for
+
 Python
-Olof Paulson  · 3 hod  ·
+Olof Paulson
 🐍 PYTHON CODING CHALLENGE - HOURS WORKED
