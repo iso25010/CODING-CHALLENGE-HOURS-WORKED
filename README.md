@@ -1,4 +1,4 @@
-A solution for
+Two solutions for
 
 Python
 Olof Paulson
