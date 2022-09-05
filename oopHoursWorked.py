@@ -32,6 +32,15 @@ class Evidence():
             return(Empl(self.lHours[self.i],self.lWeeks[self.i],self.lEmplo[self.i],self.lRates[self.i]))
         except IndexError:
             raise StopIteration
+    def __str__(self):
+        report=''
+        for person in self:
+            report+=person.__str__() + '\n'
+        return(report)
+
+
+
+
 
 
 hours=[22, 17, 27, 40, 45]
@@ -39,5 +48,4 @@ weeks=[48, 50, 42, 46, 43]
 emplo=['John,1', 'Eric,1.5', 'Terry,2', 'Michael,4', 'Graham,2']
 
 ev=Evidence(hours,weeks,emplo)
-for person in ev:
-    print(person)
+print(ev)
