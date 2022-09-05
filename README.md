@@ -1,5 +1,5 @@
-Two solutions for
+Solutions for
 
 Python
 Olof Paulson
-🐍 PYTHON CODING CHALLENGE - HOURS WORKED
+🐍 PYTHON CODING CHALLENGE
