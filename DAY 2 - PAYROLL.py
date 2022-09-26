@@ -36,13 +36,38 @@ class Employee():
 class Evidence():
     def __init__(self):
         self.lPhone_m=dict()
+        self.lEmployee=dict()
         
     def addPhone_m(self,date,phone_m):
         self.lPhone_m[date]=phone_m
 
+    def addEmployees(self,employees):
+        self.lEmployee=employees
+
+    def addEmployee(self,name,attributes):
+        self.lEmployee[name]=attributes
+
     def __str__(self):
         return self.lPhone_m.__str__()
     
+    def getPhone(self,date):
+        return self.lPhone_m[date]
+
+    def getLog(self,date,id):
+        return self.getPhone(date)[id]
+    
+    def getLogItem(self,date,id,index):
+        try:
+            return self.getLog(date,id)[index]
+        except:
+            print('Id {0} does not exist on a date {1}.'.format(id,date))
+            return None
+    
+    def getEmplAttributes(self,name):
+        return self.lEmployee[name]
+
+    def getEmplItem(self,name,index):
+        return self.getEmplAttributes(name)[index]
 
 
 # {'employee number':'logged hours at work', 'number of calls', 'total call-time in minutes','# feedback rated 4+'}
@@ -51,10 +76,12 @@ phone_m = {1:[180,1200,4783,223],2:[175,1213,4565,275],3:[155,1008,4145,180],4:[
 #employee_d1:{Name:[employee number, base pay/hour]}
 employees_d1 = {'Joe': [1, 110], 'Sue': [2, 120], 'Bo': [3, 95],'Li': [4, 90],'Ty': [5, 80], 'Vi': [6, 86]}
 
-e=Employee('Gogo',1,150)
-e.calculateWage(180)
-print(e)
-
 ev=Evidence()
-ev.addPhone_m(date(2022,9,6),phone_m)
-print(ev)
+ev.addPhone_m(date(2022,9,26),phone_m)
+ev.addEmployees(employees_d1)
+print(ev.getPhone(date(2022,9,26)))
+print(ev.getLog(date(2022,9,26),3))
+print(ev.getLogItem(date(2022,9,26),3,0))
+print(ev.getEmplAttributes('Joe'))
+print(ev.getEmplItem('Joe',0))
+print(ev.getEmplItem('Joe',1))
