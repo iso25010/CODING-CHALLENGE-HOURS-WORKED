@@ -53,21 +53,30 @@ class Evidence():
     def getPhone(self,date):
         return self.lPhone_m[date]
 
-    def getLog(self,date,id):
+    def getPhoneLog(self,date,id):
         return self.getPhone(date)[id]
     
-    def getLogItem(self,date,id,index):
+    def getPhoneLogItem(self,date,id,index):
         try:
-            return self.getLog(date,id)[index]
+            return self.getPhoneLog(date,id)[index]
         except:
             print('Id {0} does not exist on a date {1}.'.format(id,date))
             return None
-    
+
+    def getPhoneLogItemName(self,date,name,index):
+        id=self.getEmplAttributesItem(name,0)
+        return self.getPhoneLogItem(date,id,index)
+
     def getEmplAttributes(self,name):
         return self.lEmployee[name]
 
-    def getEmplItem(self,name,index):
+    def getEmplAttributesItem(self,name,index):
         return self.getEmplAttributes(name)[index]
+
+class PayRoll():
+    def __init__(self):
+        
+    def preparePayRoll(self,date):
 
 
 # {'employee number':'logged hours at work', 'number of calls', 'total call-time in minutes','# feedback rated 4+'}
@@ -79,9 +88,4 @@ employees_d1 = {'Joe': [1, 110], 'Sue': [2, 120], 'Bo': [3, 95],'Li': [4, 90],'T
 ev=Evidence()
 ev.addPhone_m(date(2022,9,26),phone_m)
 ev.addEmployees(employees_d1)
-print(ev.getPhone(date(2022,9,26)))
-print(ev.getLog(date(2022,9,26),3))
-print(ev.getLogItem(date(2022,9,26),3,0))
-print(ev.getEmplAttributes('Joe'))
-print(ev.getEmplItem('Joe',0))
-print(ev.getEmplItem('Joe',1))
+
