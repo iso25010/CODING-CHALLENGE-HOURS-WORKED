@@ -29,8 +29,14 @@ class Employee():
     def getWage(self):
         return self.wage
 
+    def getName(self):
+        return self.name
+
+    def getId(self):
+        return self.id
+
     def __str__(self):
-        rec="{0:}'s monthly pay is {1:} copper".format(self.name,self.getWage())
+        rec="{0:<9} monthly pay is {1:>4} copper".format(self.name+"'s",self.getWage())
         return(rec)
 
 class Evidence():
@@ -75,8 +81,48 @@ class Evidence():
 
 class PayRoll():
     def __init__(self):
-        
+        self.ev=Evidence()
+        self.emplo=dict()
+        self.lPayRoll=dict()
+
+    def addEvidenceRecord(self,date,phone_m):
+        self.ev.addPhone_m(date,phone_m)
+
+    def addEmployees(self,emplo):
+        self.ev.addEmployees(emplo)
+
+    def setEmployee(self,name,id,base):
+        return Employee(name,id,base)
+    
+    def updateEmployees(self):
+        for k in self.ev.lEmployee.keys():
+            self.emplo[k]=self.setEmployee(k,self.ev.getEmplAttributesItem(k,0),self.ev.getEmplAttributesItem(k,1))
+
+    def getEmplo(self):
+        return self.emplo
+    
+    def __iter__(self):
+        self.k=list(self.emplo.keys())
+        self.i=-1
+        return self
+
+    def __next__(self):
+        self.i+=1
+        try:
+            return(self.emplo[self.k[self.i]])
+        except IndexError:
+            raise StopIteration
+
+    def __str__(self):
+        str=''
+        for x in self:
+            str+=x.__str__() + '\n'
+        return str
+
     def preparePayRoll(self,date):
+        for x in self:
+            x.calculateWage(self.ev.getPhoneLogItemName(date,x.getName(),0))
+
 
 
 # {'employee number':'logged hours at work', 'number of calls', 'total call-time in minutes','# feedback rated 4+'}
@@ -85,7 +131,12 @@ phone_m = {1:[180,1200,4783,223],2:[175,1213,4565,275],3:[155,1008,4145,180],4:[
 #employee_d1:{Name:[employee number, base pay/hour]}
 employees_d1 = {'Joe': [1, 110], 'Sue': [2, 120], 'Bo': [3, 95],'Li': [4, 90],'Ty': [5, 80], 'Vi': [6, 86]}
 
-ev=Evidence()
-ev.addPhone_m(date(2022,9,26),phone_m)
-ev.addEmployees(employees_d1)
+p=PayRoll()
+p.addEmployees(employees_d1)
+p.addEvidenceRecord(date(2022,9,28),phone_m)
+p.updateEmployees()
+p.preparePayRoll(date(2022,9,28))
+print(p)
+
+
 
