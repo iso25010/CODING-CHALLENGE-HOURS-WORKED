@@ -35,8 +35,10 @@ class Employee():
         self.wage=0
         self.calls=0
         self.tax=0
+        self.taxRate=0
 
     def calculateWage(self,hours,calls):
+        self.wage=0
         self.hours=hours
         self.calls=calls
         self.wage=self.base*self.hours
@@ -44,10 +46,14 @@ class Employee():
             self.wage+=1500
 
     def calculateTax(self):
+        self.tax=0
+        baseForBonus=0
         if self.wage>0:
-            if self.wage>1670:
-                self.tax+=(self.wage-1670)*0.5
-            self.tax+=self.wage*0.3
+            if self.wage>16700:
+                baseForBonus=(self.wage-16700)
+                self.tax+=baseForBonus*0.5
+            self.tax+=(self.wage-baseForBonus)*0.3
+            self.taxRate=self.tax/self.wage
 
     def getTax(self):
         return self.tax
@@ -61,8 +67,11 @@ class Employee():
     def getId(self):
         return self.id
 
+    def getTaxRate(self):
+        return self.taxRate
+
     def __str__(self):
-        rec="{0:<9} monthly after tax pay: {2:>4} Gross: {1:>4} tax: {3:>4} Tax rate: {4:>4}%".format(self.name+"'s",self.getWage(),self.getWage()-self.getTax(),self.getTax(),self.getTax()/self.getWage()*100)
+        rec="{0:<5} monthly after tax pay: {1:>8.0f} Gross: {2:>8.0f} tax: {3:>8.0f} Tax rate: {4:>4.0f}%".format(self.name+"'s",self.getWage()-self.getTax(),self.getWage(),self.getTax(),self.getTaxRate()*100)
        # "Joe's monthly after tax pay: 13 990 Gross: 21 300 tax: 7 310 Tax rate: 34,3%"
         return(rec)
 
