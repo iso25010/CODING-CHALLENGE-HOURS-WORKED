@@ -71,7 +71,7 @@ class Employee():
         return self.taxRate
 
     def __str__(self):
-        rec="{0:<5} monthly after tax pay: {1:>8.0f} Gross: {2:>8.0f} tax: {3:>8.0f} Tax rate: {4:>4.0f}%".format(self.name+"'s",self.getWage()-self.getTax(),self.getWage(),self.getTax(),self.getTaxRate()*100)
+        rec="{0:<5} monthly after tax pay: {1:>8.0f} Gross: {2:>8.0f} tax: {3:>8.0f} Tax rate: {4:>4.1f}%".format(self.name+"'s",self.getWage()-self.getTax(),self.getWage(),self.getTax(),self.getTaxRate()*100)
        # "Joe's monthly after tax pay: 13 990 Gross: 21 300 tax: 7 310 Tax rate: 34,3%"
         return(rec)
 
