@@ -1,14 +1,18 @@
 
 #output: 'TestScores: 1 of 6 (17%),3 of 6 (50%),6 of 6 (100%)'
 class GradeTests():
-    def __init__(self,aTemplate,answers):
-        self.template=aTemplate
+    def __init__(self,cTemplate,answers,pTemplate,gTable):
+        self.template=cTemplate
         self.answers=answers
+        self.pTemplate=pTemplate
+        self.gTable=gTable
         self.results=dict()
+        self.points=dict()
 
+    #Advanced: Score tests 1 point for multiple choice(letter), 2 points for correct year.
     def correct(self):
         for x in self.answers:
-            self.results[x[0]] = tuple([1 if t==x[1:][i] else 0 for i,t in enumerate(self.template)])
+            self.results[x[0]] = tuple([self.pTemplate[i] if t==x[1:][i] else 0 for i,t in enumerate(self.template)])
         
     def getResults(self):
         return self.results 
@@ -22,10 +26,13 @@ class GradeTests():
 
 answers=[['John', 'A', 'B', 'A', 'C', 1166, 1989], ['Eric', 'B', 'C', 'C', 'B', 1066, 1939], ['Michael', 'A', 'C', 'D', 'B', 1066, 1945]]
 template=['A', 'C', 'D', 'B', 1066, 1945]
+pTemplate=[1,1,1,1,2,2]
+grading_table = {'F':0,'D':2,'C':4,'B':6,'A':7}
 
-g=GradeTests(template,answers)
+g=GradeTests(template,answers,pTemplate,grading_table)
 g.correct()
 print(g)
+print(g.getResults())
 
 
     
