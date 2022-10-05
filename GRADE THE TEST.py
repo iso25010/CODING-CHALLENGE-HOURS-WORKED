@@ -41,11 +41,18 @@ class GradeTests():
 
     def __str__(self):
         #output: 'TestScores: 1 of 6 (17%),3 of 6 (50%),6 of 6 (100%)'
+        #Output: ''Testscores- History'
+        #'John - Grade: F * 1 point of 8 * 1 of 6 correct'
+        #'Eric - Grade: C * 4 points of 8 * 3 of 6 correct'
+        #'Michael - Grade: A * 8 points of 8 * 6 of 6 correct'
 
-        str=''
-        for v in self.getResults().values():
-            str+='{0} of {1} ({2:>2.0f}%), '.format(v.count(1),len(v),v.count(1)/len(v))
-        return str
+        str='\nTestScores: '
+        str1='Testscores- History\n'
+         #value [total,good,good/total,p,grade]
+        for k,v in self.points.items():
+            str+='{0} of {1} ({2:>2.0f}%), '.format(v[1],v[0],v[2]*100)
+            str1+='{0:<9} - Grade: {1} * {2} points of {3} * {4} of {5} correct\n'.format(k,v[4],v[3],8,v[1],v[0])
+        return (str[:-2] + '\n\n' + str1)
     
 
 answers=[['John', 'A', 'B', 'A', 'C', 1166, 1989], ['Eric', 'B', 'C', 'C', 'B', 1066, 1939], ['Michael', 'A', 'C', 'D', 'B', 1066, 1945]]
@@ -56,9 +63,7 @@ grading_table = {'F':0,'D':2,'C':4,'B':6,'A':7}
 g=GradeTests(template,answers,pTemplate,grading_table)
 g.correct()
 print(g)
-print(g.getResults())
-print(grading_table)
-print(g.points)
+
 
 
     
